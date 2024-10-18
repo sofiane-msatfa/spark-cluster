@@ -5,7 +5,8 @@ WORKDIR /root
 RUN apt-get update && apt-get install -y \
     openssh-server \
     nano \
-    openjdk-8-jdk
+    openjdk-8-jdk \
+    unzip
 
 RUN apt-get install -y python3 && \ 
     apt-get install -y python3-pip && \
