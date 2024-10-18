@@ -1,5 +1,3 @@
-version: '3'
-
 services:
   hadoop-namenode:
     container_name: hadoop-namenode
@@ -21,6 +19,12 @@ services:
       - "8087:8087"
     hostname: hadoop-namenode
     command: ["sh", "-c", "service ssh start; ./start-cluster.sh; tail -f /dev/null"]
+    volumes:
+      - ./notebooks:/root/notebooks
+      - ./data:/root/data
+      - ./database:/root/database
+      - ./scripts:/root/scripts
+
   hadoop-datanode1:
     container_name: hadoop-datanode1
     build:
@@ -36,6 +40,7 @@ services:
     depends_on:
       - hadoop-namenode
     command: ["sh", "-c", "service ssh start; tail -f /dev/null"]
+
   hadoop-datanode2:
     container_name: hadoop-datanode2
     build:
