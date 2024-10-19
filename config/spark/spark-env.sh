@@ -70,3 +70,4 @@ export SPARK_HOME=/usr/local/spark
 export PYSPARK_PYTHON=python3
 export PYSPARK_DRIVER_PYTHON=jupyter
 export PYSPARK_DRIVER_PYTHON_OPTS='notebook'
+export JAVA_HOME=/opt/java/openjdk

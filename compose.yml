@@ -9,7 +9,7 @@ services:
     mem_limit: 2g
     cpus: 1
     ports:
-      - "50070:50070"
+      - "9870:9870"
       - "8088:8088"
       - "7077:7077"
       - "8888:8888"
@@ -32,11 +32,11 @@ services:
       dockerfile: Dockerfile
     mem_limit: 1.5g
     cpus: 2
-    ports:
-      - "8081:8081"
     networks:
       - hadoop-spark
     hostname: hadoop-datanode1
+    ports:
+      - "8081:8081"
     depends_on:
       - hadoop-namenode
     command: ["sh", "-c", "service ssh start; tail -f /dev/null"]
