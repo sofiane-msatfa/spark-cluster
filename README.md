@@ -9,7 +9,7 @@ docker compose up -d
 
 ### 2. Accéder aux interfaces web
 
-1. hadoop cluster: http://localhost:50070/
+1. hadoop cluster: http://localhost:9870/
 2. hadoop cluster - resource manager: http://localhost:8088/
 3. spark cluster: https://localhost:8080/
 4. jupyter notebook: https://localhost:8888/
