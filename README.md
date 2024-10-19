@@ -25,3 +25,9 @@ Exemple:
 ```
 docker exec -it hadoop-namenode /bin/bash -c "./scripts/traitement.sh"
 ```
+
+### 4. Envoi des fichiers vers le HDFS
+
+Mettre les archives dans /data/input
+
+lancer dans l'ordre les commandes du script /scripts/local-commands.sh

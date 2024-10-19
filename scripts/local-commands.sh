@@ -1,2 +1,2 @@
-# copier un fichier de /root/data vers le hdfs
-docker exec -it hadoop-namenode /bin/bash -c "hdfs dfs -copyFromLocal /root/data/output/On_Time_Marketing_Carrier_On_Time_Performance_Beginning_January_2018_2019_1.csv /On_Time_Marketing_Carrier_On_Time_Performance_Beginning_January_2018_2019_1.csv"
+docker exec -it hadoop-namenode /bin/bash -c "./scripts/unzip.sh"
+docker exec -it hadoop-namenode /bin/bash -c "./scripts/upload.sh"
