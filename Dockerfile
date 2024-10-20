@@ -51,7 +51,8 @@ ENV PATH=$PATH:$HADOOP_HOME/bin:$HADOOP_HOME/sbin:$SPARK_HOME/bin:$SPARK_HOME/sb
 RUN pip3 install --upgrade setuptools && \
     pip3 install jupyter && \
     pip3 install pyspark==${SPARK_VERSION} && \
-    pip3 install duckdb
+    pip3 install duckdb \
+    pip3 install pandas 
 
 # ssh without key
 RUN ssh-keygen -t rsa -f ~/.ssh/id_rsa -P '' && \
