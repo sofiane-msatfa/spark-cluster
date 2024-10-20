@@ -4,7 +4,7 @@
 OUTPUT_DIR="$HOME/data/output"
 COMPLETED_DIR="$OUTPUT_DIR/completed"
 ERROR_DIR="$OUTPUT_DIR/error"
-HDFS_DATA_DIR="/data"
+HDFS_DATA_DIR="/staging"
 
 # Function to create directories if they don't exist
 create_directories() {

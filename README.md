@@ -26,8 +26,23 @@ Exemple:
 docker exec -it hadoop-namenode /bin/bash -c "./scripts/traitement.sh"
 ```
 
-### 4. Envoi des fichiers vers le HDFS
+### Traitements
 
-Mettre les archives dans /data/input
+Mettre les archives ZIP dans /data/input
 
-lancer dans l'ordre les commandes du script /scripts/local-commands.sh
+Accéder à Jupyter : https://localhost:8888/
+
+Lancer le script `/notebooks/traitement.ipynb`
+
+Les données sont traitées et envoyées sur en base de données (les credentials se trouvent dans le compose.yml si besoin d'y accéder)
+
+### Analyses
+
+Explications des analyses proposées :
+
+1. Analyse des retards par distance :
+    - Ce graphique montre la relation entre la distance parcourue par les vols et les retards moyens pour chaque cause. Cela permet d'identifier si les vols plus longs ou plus courts sont plus susceptibles d'accumuler des retards.
+    - Les lignes représentent les différents types de retards (compagnie, météo, etc.).
+
+2. Distribution des retards par heure de départ :
+    - Analyse les retards moyens selon l'heure de départ des vols. Cela permet de voir si certaines heures sont plus sujettes aux retards (par exemple, les vols du matin sont-ils plus ponctuels que ceux de l'après-midi ?).

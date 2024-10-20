@@ -18,11 +18,20 @@ services:
       - "10000:10000"
       - "8087:8087"
     hostname: hadoop-namenode
-    command: ["sh", "-c", "service ssh start; ./start-cluster.sh; tail -f /dev/null"]
+    command: [ "sh", "-c", "service ssh start; ./start-cluster.sh; tail -f /dev/null" ]
+    environment:
+      - DB_HOST=postgres
+      - DB_PORT=5432
+      - DB_USER=postgres
+      - DB_PASSWORD=p0stgr3s
+      - DB_NAME=postgres
+    depends_on:
+      - postgres
     volumes:
+    # @see https://hadoop.apache.org/docs/current/hadoop-project-dist/hadoop-hdfs/hdfs-default.xml - dfs.namenode.name.dir
+      - hadoop-namenode:/home/root/hadoop/dfs/name
       - ./notebooks:/root/notebooks
       - ./data:/root/data
-      - ./database:/root/database
       - ./scripts:/root/scripts
 
   hadoop-datanode1:
@@ -39,7 +48,10 @@ services:
       - "8081:8081"
     depends_on:
       - hadoop-namenode
-    command: ["sh", "-c", "service ssh start; tail -f /dev/null"]
+    command: [ "sh", "-c", "service ssh start; tail -f /dev/null" ]
+    volumes:
+    # @see https://hadoop.apache.org/docs/current/hadoop-project-dist/hadoop-hdfs/hdfs-default.xml - dfs.datanode.data.dir
+      - hadoop-datanode1:/home/root/hadoop/dfs/data
 
   hadoop-datanode2:
     container_name: hadoop-datanode2
@@ -53,8 +65,32 @@ services:
     hostname: hadoop-datanode2
     depends_on:
       - hadoop-namenode
-    command: ["sh", "-c", "service ssh start; tail -f /dev/null"]
+    command: [ "sh", "-c", "service ssh start; tail -f /dev/null" ]
+    volumes:
+      - hadoop-datanode2:/home/root/hadoop/dfs/data
+
+  postgres:
+    container_name: postgres
+    image: postgres:16-alpine
+    networks:
+      - hadoop-spark
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: p0stgr3s
+      POSTGRES_DB: postgres
+    healthcheck:
+      test: [ "CMD", "pg_isready", "-U", "postgres" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
 
 networks:
   hadoop-spark:
     driver: bridge
+
+volumes:
+  hadoop-namenode:
+  hadoop-datanode1:
+  hadoop-datanode2:

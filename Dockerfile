@@ -36,13 +36,16 @@ RUN wget https://dlcdn.apache.org/spark/spark-${SPARK_VERSION}/spark-${SPARK_VER
     mv spark-${SPARK_VERSION}-bin-hadoop3 /usr/local/spark && \ 
     rm spark-${SPARK_VERSION}-bin-hadoop3.tgz
 
+# download postgresql driver
+RUN wget https://jdbc.postgresql.org/download/postgresql-42.7.4.jar -P /usr/local/spark/jars
+
 # set environment vars
 ENV HADOOP_HOME=/usr/local/hadoop
 ENV HADOOP_CONF_DIR=$HADOOP_HOME/etc/hadoop
 ENV LD_LIBRARY_PATH=$HADOOP_HOME/lib/native
 
 ENV SPARK_HOME=/usr/local/spark
-ENV SPARK_MASTER_PORT 7077
+ENV SPARK_MASTER_PORT=7077
 ENV JAVA_HOME=/opt/java/openjdk
 
 ENV PATH=$PATH:$HADOOP_HOME/bin:$HADOOP_HOME/sbin:$SPARK_HOME/bin:$SPARK_HOME/sbin:$JAVA_HOME/bin
@@ -50,8 +53,9 @@ ENV PATH=$PATH:$HADOOP_HOME/bin:$HADOOP_HOME/sbin:$SPARK_HOME/bin:$SPARK_HOME/sb
 # download python packages
 RUN pip3 install --upgrade setuptools && \
     pip3 install jupyter && \
+    pip3 install py4j && \
     pip3 install pyspark==${SPARK_VERSION} && \
-    pip3 install duckdb \
+    pip3 install psycopg2-binary && \
     pip3 install pandas 
 
 # ssh without key
@@ -90,6 +94,3 @@ RUN sed -i 's/\r$//g' $SPARK_HOME/conf/workers
 RUN sed -i 's/\r$//g' $SPARK_HOME/conf/spark-default.conf
 RUN sed -i 's/\r$//g' $SPARK_HOME/conf/spark-env.sh
 RUN sed -i 's/\r$//g' ~/start-cluster.sh
-
-# format namenode
-RUN $HADOOP_HOME/bin/hdfs namenode -format

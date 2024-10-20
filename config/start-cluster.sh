@@ -1,5 +1,10 @@
 #!/bin/bash
 
+# Format du NameNode si nécessaire
+if [ ! -d "/home/$HDFS_NAMENODE_USER/hadoop/dfs/name" ]; then
+    hdfs namenode -format
+fi
+
 # start hadoop and yarn
 $HADOOP_HOME/sbin/start-dfs.sh
 $HADOOP_HOME/sbin/start-yarn.sh
