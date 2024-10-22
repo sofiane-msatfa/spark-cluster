@@ -23,7 +23,7 @@ Ils permettent de facilement y accéder depuis le container pour intéragir avec
 
 Exemple:
 ```
-docker exec -it hadoop-namenode /bin/bash -c "./scripts/traitement.sh"
+docker exec -it hadoop-namenode /bin/bash -c "./notebooks/traitement.ipynb"
 ```
 
 ### Traitements
